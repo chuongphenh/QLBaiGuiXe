@@ -1,0 +1,98 @@
+﻿<style>
+    body {
+        font-family: Arial;
+    }
+
+    .auth form .form-group {
+        margin-bottom: 10px !important;
+    }
+
+    .text-fw600 {
+        /*font-weight:600;*/
+        font-size: 16px !important;
+    }
+</style>
+
+<div class="row flex-grow">
+
+    <div class="col-lg-10 mx-auto" style="padding-top:0px">
+        <div class="card">
+            <div class="card-body" style="padding-top:10px">
+                <h1 class="card-title" style="text-align:center; font-size:30px"> QUẢN LÝ GỬI XE</h1>
+                <form class="forms-sample" method="post" enctype="multipart/form-date" action="GuiXePost">
+                    <div class="form-group row">
+                        <div class="form-group row">
+                            <label for="exampleInputEmail2" class="col-sm-3 col-form-label text-fw600">Loại xe</label>
+                            <div class="col-sm-3" style="padding-left:30px;">
+                                 <select class="form-control form-control-sm" name="loai_xe" disabled>
+                                @switch (ViewBag.loai_xe)
+                                {
+                                case 0:
+                                <option value="0" selected>Xe đạp, xe đạp điện</option>
+                                <option value="1">Xe máy</option>
+                                <option value="2">Ô tô</option>
+                                break;
+                                case 1:
+                                <option value="0">Xe đạp, xe đạp điện</option>
+                                <option value="1" selected>Xe máy</option>
+                                <option value="2">Ô tô</option>
+                                break;
+                                case 2:
+                                <option value="0">Xe đạp, xe đạp điện</option>
+                                <option value="1" >Xe máy</option>
+                                <option value="2" selected>Ô tô</option>
+                                break;
+                                default:
+                                break;
+                                }
+
+                                </select>
+                            </div>
+                        </div>
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label text-fw600">Tên xe gửi</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" id="exampleInputUsername2" placeholder="Ví dụ: Xe máy Vision" name="ten_xe">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label text-fw600">Dòng xe</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" id="exampleInputConfirmPassword2" placeholder="Ví dụ: Honda" name="dong_xe">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="exampleInputMobile" class="col-sm-3 col-form-label text-fw600">Biển số</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" id="exampleInputMobile" placeholder="Ví dụ: 99K1-999.99" name="bien_so">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="exampleInputPassword2" class="col-sm-3 col-form-label text-fw600">Màu xe</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" id="exampleInputPassword2" placeholder="Ví dụ: Màu trắng" name="mau_xe">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label text-fw600">Ngày vào</label>
+                        <div class="col-sm-9">
+                            <input type="date" class="form-control form-control-sm" id="exampleInputConfirmPassword2" placeholder="" name="ngay_vao">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label text-fw600">Hình ảnh</label>
+                        <div class="col-sm-9">
+                            <input type="file" class="form-control form-control-sm" id="exampleInputConfirmPassword2" placeholder="" name="hinh_anh">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-gradient-primary me-2">Gửi xe</button>
+                    <button class="btn btn-light">Huỷ</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
