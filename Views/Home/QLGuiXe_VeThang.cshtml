@@ -1,0 +1,118 @@
+﻿<style>
+    body {
+        font-family: Arial;
+    }
+
+    .auth form .form-group {
+        margin-bottom: 10px !important;
+    }
+
+    .text-fw600 {
+        /*font-weight:600;*/
+        font-size: 16px !important;
+    }
+
+    .error {
+        color: red;
+    }
+</style>
+@{
+    var ma_ve_thang = ViewBag.ma_ve_thang ?? "";
+    var bai_xe = ViewBag.bai_xe ?? "";
+    var btn_gui_xe = ViewBag.btnGuiXe ?? "Kiểm tra";
+    var btn_gui_xeTC = ViewBag.btnGuiXeTC ?? "Quay lại";
+}
+<div class="row flex-grow" style="margin:10px">
+
+    <div class="col-lg-12 mx-auto">
+        <div class="card">
+
+            <div class="card-body" style="padding-top:10px">
+                <p style="color:grey">@bai_xe</p>
+                <h1 class="card-title" style="text-align:center; font-size:30px"> QUẢN LÝ GỬI XE</h1>
+                <form class="forms-sample" method="post" enctype="multipart/form-date" action="GuiXePostVeThang">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label text-fw600">Mã vé tháng</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control form-control-sm" placeholder="Ví dụ: MVT1" name="ma_ve_thang" required value="@ma_ve_thang">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Loại xe gửi</label>
+                                <div class="col-sm-6">
+                                    @{
+                                        var str = "";
+                                    }
+                                    @if (ViewBag.loai_xe == 0)
+                                    {
+                                        str = "Xe đạp, xe đạp điện";
+                                    }
+                                    else if (ViewBag.loai_xe == 1)
+                                    {
+                                        str = "Xe máy";
+                                    }
+                                    else
+                                    {
+                                        str = "Ô tô";
+                                    }
+                                    <input type="text" class="form-control form-control-sm"  required value="@str" disabled>
+                                    <input type="text" class="form-control form-control-sm" required value="@ViewBag.loai_xe" name="loai_xe" hidden>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="error">@ViewBag.noti</p>
+                    <button type="submit" class="btn btn-inverse-success btn-fw me-2" >@btn_gui_xe</button>
+                    <a class="btn btn-light" href="/Home/Index">@btn_gui_xeTC</a>
+                    <input type="text" value="@ViewBag.bai_xe" name="bai_xe" hidden />
+                    <input type="text" value="@btn_gui_xe" name="btn_gui_xe" hidden />
+                </form>
+
+                @if (ViewBag.noti == "Tìm thấy vé tháng!")
+                {
+                    <table class="table table-striped" style="width:100%; text-align:center">
+                        <colgroup class="table ">
+                            <col style="width: 15%;">
+                            <col style="width: 10%;">
+                            <col style="width: 10%;">
+                            <col style="width: 10%;">
+                            <col style="width: 13%;">
+                            <col style="width: 13%;">
+                            <col style="width: 40%;">
+
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th> Loại xe </th>
+                                <th> Tên xe </th>
+                                <th> Màu sắc </th>
+                                <th> Biển số </th>
+                                <th> Ngày đăng ký </th>
+                                <th> Ngày hết hạn </th>
+                                <th> Hình ảnh </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@ViewBag.Record.LoaiXe.TenLoaiXe</td>
+                                <td>@ViewBag.Record.Xe.DongXe @ViewBag.Record.Xe.TenXe </td>
+                                <td>@ViewBag.Record.Xe.MauSac</td>
+                                <td>@ViewBag.Record.Xe.BienSo</td>
+                                <td>@String.Format("{0:dd/MM/yyyy HH:mm:ss}", ViewBag.Record.VeXe.NgayDangKy)</td>
+                                <td>@String.Format("{0:dd/MM/yyyy HH:mm:ss}", ViewBag.Record.VeXe.NgayHetHan)</td>
+                                <td> <img style="width:100%; height:200px" src="~/Upload/Xe/@ViewBag.Record.VeXe.HinhAnh" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                }
+            </div>
+        </div>
+    </div>
+
+
+</div>

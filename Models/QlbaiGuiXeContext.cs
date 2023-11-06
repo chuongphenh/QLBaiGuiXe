@@ -80,6 +80,8 @@ public partial class QlbaiGuiXeContext : DbContext
             entity.Property(e => e.BienSo)
                 .HasMaxLength(200)
                 .HasColumnName("bien_so");
+            entity.Property(e => e.IdUser).HasColumnName("id_user");
+            entity.Property(e => e.IdVeXe).HasColumnName("id_ve_xe");
             entity.Property(e => e.LoaiVe)
                 .HasMaxLength(200)
                 .HasColumnName("loai_ve");
@@ -145,12 +147,18 @@ public partial class QlbaiGuiXeContext : DbContext
         {
             entity.ToTable("VeXe");
 
+            entity.HasIndex(e => e.MaVe, "UQ_VeXeMaVe").IsUnique();
+
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.HinhAnh)
                 .HasMaxLength(500)
                 .HasColumnName("hinh_anh");
+            entity.Property(e => e.IdBaiXe).HasColumnName("id_bai_xe");
             entity.Property(e => e.IdLoaiVe).HasColumnName("id_loai_ve");
             entity.Property(e => e.IdXe).HasColumnName("id_xe");
+            entity.Property(e => e.MaVe)
+                .HasMaxLength(100)
+                .HasColumnName("ma_ve");
             entity.Property(e => e.NgayDangKy)
                 .HasColumnType("datetime")
                 .HasColumnName("ngay_dang_ky");
@@ -182,6 +190,8 @@ public partial class QlbaiGuiXeContext : DbContext
         modelBuilder.Entity<Xe>(entity =>
         {
             entity.ToTable("Xe");
+
+            entity.HasIndex(e => e.BienSo, "unique_bien_so").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.BienSo)

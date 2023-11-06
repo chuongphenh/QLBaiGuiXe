@@ -1,0 +1,148 @@
+﻿<style>
+    body {
+        font-family: Arial !important;
+    }
+
+    .auth form .form-group {
+        margin-bottom: 10px !important;
+    }
+
+    .text-fw600 {
+        /*font-weight:600;*/
+        font-size: 16px !important;
+    }
+</style>
+
+<div class="row flex-grow">
+
+    <div class="col-lg-10 mx-auto" style="padding-top:0px">
+        <div class="card">
+            <div class="card-body" style="padding-top:10px">
+                <h1 class="card-title" style="text-align:center; font-size:30px"> TẠO VÉ THÁNG</h1>
+                <form class="form-sample" method="post" enctype="multipart/form-data" action="TaoVeThangPost">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label ">Mã vé</label>
+                                <div class="col-sm-9">
+                                    <input type="text"  class="form-control form-control-sm"  name="ma_ve" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Loại xe gửi</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control form-control-sm" name="loai_xe" >
+                                        <option value="1">Xe đạp, xe đạp điện</option>
+                                        <option value="2">Xe máy</option>
+                                        <option value="3">Ô tô</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="card-description"> Thông tin người gửi</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Họ tên</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" placeholder="Ví dụ: Nguyễn Văn A" name="ho_ten">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Số điện thoại</label>
+                                <div class="col-sm-9">
+                                    <input type="number" class="form-control form-control-sm" placeholder="Ví dụ: 0123456789" name="so_dien_thoai">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Giới tính</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control form-control-sm" name="gioi_tinh">
+                                        <option value="Nam">Nam</option>
+                                        <option value= "Nữ">Nữ</option>
+                                        <option value="Khác">Khác</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Địa chỉ</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" placeholder="Ví dụ: Dịch Vọng, Cầu Giấy, Hà Nội" name="dia_chi">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="card-description"> Thông tin xe gửi </p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Tên xe gửi</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm"  placeholder="Ví dụ: Xe máy Vision" name="ten_xe">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Biển số xe</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" placeholder="Ví dụ: 99K1-999.99" name="bien_so">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Dòng xe</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" placeholder="Ví dụ: Honda" name="dong_xe">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Màu xe</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" placeholder="Ví dụ: Màu trắng" name="mau_xe">
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Hình ảnh xe</label>
+                                <div class="col-sm-9">
+                                    <input type="file" class="form-control form-control-sm" placeholder="" name="hinh_anh">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Số tháng</label>
+                                <div class="col-sm-9">
+                                    <input type="number" class="form-control form-control-sm" placeholder="Ví dụ: 1" name="so_thang">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-gradient-primary me-2">Tạo vé</button>
+                    <a class="btn btn-light" href="/Home/Index">Quay lại</a>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -38,7 +38,8 @@
         font-weight: 400;
         margin-left: 15px !important;
     }
-    .het_cho{
+
+    .het_cho {
         background-color: #fe7c96 !important;
     }
 </style>
@@ -51,7 +52,7 @@
     {
         var list_BaiXe = Model as List<BaiXe> ?? null;
         int kt = 0;
-        if(list_BaiXe != null)
+        if (list_BaiXe != null)
         {
             foreach (var item in list_BaiXe)
             {
@@ -73,7 +74,7 @@
                 kt += Convert.ToInt32(item.SoChoTrongXeDapMay);
             }
         }
-       
+
         if (kt > 0) { return false; }
         else { return true; }
     }
@@ -86,51 +87,56 @@
                 <div class=" gradient-text text-uppercase"> Chào mừng bạn đến với hệ thống quản lý bãi gửi xe</div>
                 <div class="row">
                     <div class="col-4" style="padding-right:0;">
-                        <form class="forms-sample  " method="post" action="/home/Index1" style="padding-top:12px">
+                        <form class="forms-sample  " method="post" action="/home/GuiXe" style="padding-top:12px">
+                           
                             <div class="form-group">
                                 <div class="form-group row">
-                                    <label for="exampleInputEmail2" class="col-sm-5 col-form-label text-fw600" style="padding-right:0">Chọn loại xe</label>
+                                    <label for="exampleInputEmail2" class="col-sm-5 col-form-label text-fw600" style="padding-right:0">Chọn bãi xe</label>
                                     <div class="col-sm-6" style="padding-left:0px;">
-                                        <select class="form-control form-control-sm" name="loai_xe">
-                                            @if (check_oto() == true && check_xe2banh() == true)
+                                        <select class="form-control form-control-sm" name="bai_xe">
+                                            @foreach (var item in list_BaiXe)
                                             {
-                                                <option value="0" disabled>Xe đạp, xe đạp điện</option>
-                                                <option value="1" disabled>Xe máy</option>
-                                                <option value="2" disabled>Ô tô</option>
-                                            }
-                                            else if (check_xe2banh())
-                                            {
-                                                <option value="0" disabled>Xe đạp, xe đạp điện</option>
-                                                <option value="1" disabled>Xe máy</option>
-                                                <option value="2">Ô tô</option>
-                                            }
-                                            else if (check_oto())
-                                            {
-                                                <option value="0" >Xe đạp, xe đạp điện</option>
-                                                <option value="1" >Xe máy</option>
-                                                <option value="2" disabled>Ô tô</option>
-                                            }
-                                           
-                                            else
-                                            {
-                                                <option value="0">Xe đạp, xe đạp điện</option>
-                                                <option value="1">Xe máy</option>
-                                                <option value="2">Ô tô</option>
+                                                if (item.SoChoTrongXeDapMay <= 0 && item.SoChoTrongOTo <= 0 )
+                                                {
+                                                    <option value="@item.TenBaiXe" disabled>@item.TenBaiXe</option>
+                                                }
+                                                else if ((ViewBag.loai_xe == 0 || ViewBag.loai_xe == 1) && item.SoChoTrongXeDapMay <= 0)
+                                                {
+                                                    <option value="@item.TenBaiXe" disabled>@item.TenBaiXe</option>
+                                                }
+                                                else if (ViewBag.loai_xe == 2 && item.SoChoTrongOTo <= 0)
+                                                {
+                                                    <option value="@item.TenBaiXe" disabled>@item.TenBaiXe</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.TenBaiXe">@item.TenBaiXe</option>
+                                                }
                                             }
 
                                         </select>
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label  class="col-sm-5 col-form-label text-fw600" style="padding-right:0">Loại vé</label>
+                                    <div class="col-sm-6" style="padding-left:0px;">
+                                        <select class="form-control form-control-sm" name="loai_ve">
+                                           <option value="0">Vé lượt</option>
+                                           <option value="1">Vé tháng</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                           
                             @if (check_oto() == true && check_xe2banh() == true)
                             {
-                                <button type="submit" disabled class="btn btn-inverse-success btn-fw me-2">Tiếp tục</button>
+                                <button type="submit" disabled class="btn btn-inverse-success btn-fw me-2" >Tiếp tục</button>
                             }
                             else
                             {
                                 <button type="submit" class="btn btn-inverse-success btn-fw me-2">Tiếp tục</button>
                             }
+                            <input type="text" value="@ViewBag.loai_xe" hidden/ name="loai_xe">
+                            <button class="btn btn-light" asp-action="Index" asp-controller="Home">Quay lại</button>
                         </form>
                     </div>
                     <div class="col-lg-8">
@@ -157,7 +163,7 @@
                                 @foreach (var item in list_BaiXe)
                                 {
                                     <tr>
-                                       
+
                                         <td>@item.TenBaiXe</td>
                                         @if (item.SoChoTrongXeDapMay <= 0)
                                         {
@@ -167,7 +173,7 @@
                                         {
                                             <td class="text-center"> @item.SoChoTrongXeDapMay</td>
                                         }
-                                       
+
                                         <td class="text-center">@item.SoChoXeDapMay</td>
                                         @if (item.SoChoTrongOTo <= 0)
                                         {
@@ -177,7 +183,7 @@
                                         {
                                             <td class="text-center">@item.SoChoTrongOTo</td>
                                         }
-                                       
+
                                         <td class="text-center">@item.SoChoOTo</td>
                                         <td>
                                             @if (item.SoChoTrongXeDapMay <= 0 && item.SoChoOTo <= 0)
@@ -199,7 +205,6 @@
                 {
                     <div class="text-center" style="font-size:20px !important; color:#fe7c96; padding:10px;"> Đã hết chỗ để xe!</div>
                 }
-                <div class="text-center" style="font-size:20px !important; color:#55efc4; padding:10px;"> @ViewBag.NotiGuiXesuccess</div>
             </div>
         </div>
     </div>

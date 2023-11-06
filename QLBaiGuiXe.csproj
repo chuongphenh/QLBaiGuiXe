@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Upload\GuiXe\" />
+    <Folder Include="wwwroot\Upload\Xe\" />
   </ItemGroup>
 
 </Project>

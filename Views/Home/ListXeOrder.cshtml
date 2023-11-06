@@ -1,0 +1,108 @@
+﻿<style>
+    body {
+        font-family: Arial !important;
+    }
+
+    .auth form .form-group {
+        margin-bottom: 10px !important;
+    }
+
+    .text-fw600 {
+        /*font-weight:600;*/
+        font-size: 16px !important;
+    }
+
+    tr td {
+        white-space: normal !important;
+        line-height: 1.5 !important;
+    }
+
+    .table-striped {
+        background-color: #f2f2f2;
+    }
+</style>
+
+<div class="row flex-grow" style="margin: 5px">
+
+    <div class="col-lg-12 " style="padding-top:0px; ">
+        <div class="card">
+            <div class="card-body" style="padding-top:10px">
+                <h1 class="card-title" style="text-align:center; font-size:30px"> LỊCH SỬ XE GỬI</h1>
+                @if (ViewBag.list_order.Count > 0)
+                {
+                    <table class="table table-bordered">
+                        <colgroup class="table">
+                            <col style="width: 3%;">
+                            <col style="width: 8%;">
+                            <col style="width: 8%;">
+                            <col style="width: 10%;">
+                            <col style="width: 10%;">
+                            <col style="width: 10%;">
+                            <col style="width: 10%;">
+                            <col style="width: 10%;">
+                            <col style="width: 10%;">
+
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th> STT </th>
+                                <th> Loại xe </th>
+                                <th> Tên xe </th>
+                                <th> Màu sắc </th>
+                                <th> Biển số </th>
+                                <th> Loại vé </th>
+                                <th> Ngày vào </th>
+                                <th> Ngày ra </th>
+                                <th> Tổng tiền </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int i = 1;
+                                var sum = 0;
+                            }
+                            @foreach (var item in ViewBag.list_order)
+                            {
+                                var ngayvao = "";
+                                var ngayra = "";
+                                @if (item.NgayVao != null)
+                                {
+
+                                    ngayvao = String.Format("{0:dd/MM/yyyy HH:mm:ss}", item.NgayVao);
+                                }
+
+                                @if (item.NgayRa != null)
+                                {
+                                    ngayra= String.Format("{0:dd/MM/yyyy HH:mm:ss}", item.NgayRa);
+                                }
+                             
+                                <tr>
+                                    <td>@i</td>
+                                    <td>@item.LoaiXe</td>
+                                    <td>@item.TenXe</td>
+                                    <td>@item.MauSac</td>
+                                    <td>@item.BienSo</td>
+                                    <td>@item.LoaiVe </td>
+                                    <td>@ngayvao</td>
+                                    <td>@ngayra</td>
+                                    <td>@string.Format("{0:#,#.}", item.TongTien).Replace(",",".")₫ </td>
+                                </tr>
+                                i++;
+                                sum += item.TongTien;
+
+                            }
+
+                        </tbody>
+                        <tr>
+                            <th colspan="7"></th>
+                            <th>Tổng tiền</th>
+                            <th >@string.Format("{0:#,#.}", sum).Replace(",",".")₫ </th>
+                        </tr>
+                    </table>
+                }
+
+
+            </div>
+        </div>
+    </div>
+</div>

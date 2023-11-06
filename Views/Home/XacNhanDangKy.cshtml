@@ -1,0 +1,142 @@
+﻿<style>
+    body {
+        font-family: Arial !important;
+    }
+
+    .auth form .form-group {
+        margin-bottom: 10px !important;
+    }
+
+    .text-fw600 {
+        /*font-weight:600;*/
+        font-size: 16px !important;
+    }
+</style>
+@{
+    
+}
+<div class="row flex-grow">
+
+    <div class="col-lg-10 mx-auto" style="padding-top:0px">
+        <div class="card">
+            <div class="card-body" style="padding-top:10px">
+                <h1 class="card-title" style="text-align:center; font-size:30px"> HOÁ ĐƠN</h1>
+                <form class="form-sample">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label ">Mã vé</label>
+                                <div class="col-sm-9">
+                                    <input value="@ViewBag.vexe.MaVe" disabled type="text" class="form-control form-control-sm" placeholder="Ví dụ: MV1" name="ma_ve" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Loại xe gửi</label>
+                                <div class="col-sm-9">
+                                    <input value="@ViewBag.loaixe.TenLoaiXe" disabled type="text" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="card-description"> Thông tin người gửi</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Họ tên</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" value="@ViewBag.user.TenDayDu" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Số điện thoại</label>
+                                <div class="col-sm-9">
+                                    <input type="number" value="@ViewBag.user.SoDienThoai" class="form-control form-control-sm" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Giới tính</label>
+                                <div class="col-sm-9">
+                                    <input type="text" value="@ViewBag.user.GioiTinh" class="form-control form-control-sm" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Địa chỉ</label>
+                                <div class="col-sm-9">
+                                    <input type="text" value="@ViewBag.user.DiaChi" class="form-control form-control-sm" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="card-description"> Thông tin xe gửi </p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Tên xe gửi</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" disabled value="@ViewBag.xe.TenXe">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Biển số xe</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" disabled value="@ViewBag.xe.BienSo">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Dòng xe</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" disabled value="@ViewBag.xe.DongXe">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Màu xe</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" disabled value="@ViewBag.xe.MauSac">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Hình ảnh xe</label>
+                                <div class="col-sm-9">
+                                    <img style="width:100%; height:200px" src="~/Upload/Xe/@ViewBag.vexe.HinhAnh"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Tổng tiền</label>
+                                <div class="col-sm-9">
+                                    <input value="@string.Format("{0:#,#.}", ViewBag.order.TongTien).Replace(",",".")₫" type="text" class="form-control form-control-sm" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   @* <button type="submit" class="btn btn-gradient-primary me-2">Tạo vé</button>*@
+                    <a class="btn btn-light" href="/Home/DanhSachVeThang">Kết thúc</a>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -14,81 +14,74 @@
 </style>
 
 <div class="row flex-grow">
-
+   
     <div class="col-lg-10 mx-auto" style="padding-top:0px">
         <div class="card">
+            
             <div class="card-body" style="padding-top:10px">
+                <p style="color:grey">@ViewBag.bai_xe</p>
                 <h1 class="card-title" style="text-align:center; font-size:30px"> QUẢN LÝ GỬI XE</h1>
-                <form class="forms-sample" method="post" enctype="multipart/form-date" action="GuiXePost">
+                <form class="forms-sample" method="post" enctype="multipart/form-data" action="GuiXePost">
                     <div class="form-group row">
                         <div class="form-group row">
-                            <label for="exampleInputEmail2" class="col-sm-3 col-form-label text-fw600">Loại xe</label>
+                            <label class="col-sm-3 col-form-label text-fw600">Mã vé xe</label>
                             <div class="col-sm-3" style="padding-left:30px;">
-                                 <select class="form-control form-control-sm" name="loai_xe" disabled>
-                                @switch (ViewBag.loai_xe)
-                                {
-                                case 0:
-                                <option value="0" selected>Xe đạp, xe đạp điện</option>
-                                <option value="1">Xe máy</option>
-                                <option value="2">Ô tô</option>
-                                break;
-                                case 1:
-                                <option value="0">Xe đạp, xe đạp điện</option>
-                                <option value="1" selected>Xe máy</option>
-                                <option value="2">Ô tô</option>
-                                break;
-                                case 2:
-                                <option value="0">Xe đạp, xe đạp điện</option>
-                                <option value="1" >Xe máy</option>
-                                <option value="2" selected>Ô tô</option>
-                                break;
-                                default:
-                                break;
+                                <input type="text" class="form-control form-control-sm" placeholder="Ví dụ: MV1" name="ma_ve_luot" required>
+                            </div>
+                            <label  class="col-sm-3 col-form-label text-fw600">Loại xe</label>
+                            <div class="col-sm-3" style="padding-left:30px;">
+                                @{
+                                    var str = "";
                                 }
-
-                                </select>
+                                @if (ViewBag.loai_xe == 0)
+                                {
+                                    str = "Xe đạp, xe đạp điện";
+                                }
+                                else if (ViewBag.loai_xe == 1)
+                                {
+                                    str = "Xe máy";
+                                }
+                                else
+                                {
+                                    str = "Ô tô";
+                                }
+                                <input type="text" class="form-control form-control-sm" required value="@str" disabled >
+                                <input type="text" class="form-control form-control-sm" required value="@ViewBag.loai_xe"  hidden name="loai_xe">
                             </div>
                         </div>
                         <label for="exampleInputUsername2" class="col-sm-3 col-form-label text-fw600">Tên xe gửi</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" id="exampleInputUsername2" placeholder="Ví dụ: Xe máy Vision" name="ten_xe">
+                            <input type="text" class="form-control form-control-sm" placeholder="Ví dụ: Xe máy Vision" name="ten_xe">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label text-fw600">Dòng xe</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" id="exampleInputConfirmPassword2" placeholder="Ví dụ: Honda" name="dong_xe">
+                            <input type="text" class="form-control form-control-sm" placeholder="Ví dụ: Honda" name="dong_xe">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="exampleInputMobile" class="col-sm-3 col-form-label text-fw600">Biển số</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" id="exampleInputMobile" placeholder="Ví dụ: 99K1-999.99" name="bien_so">
+                            <input type="text" class="form-control form-control-sm"  placeholder="Ví dụ: 99K1-999.99" name="bien_so">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="exampleInputPassword2" class="col-sm-3 col-form-label text-fw600">Màu xe</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" id="exampleInputPassword2" placeholder="Ví dụ: Màu trắng" name="mau_xe">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label text-fw600">Ngày vào</label>
-                        <div class="col-sm-9">
-                            <input type="date" class="form-control form-control-sm" id="exampleInputConfirmPassword2" placeholder="" name="ngay_vao">
+                            <input type="text" class="form-control form-control-sm" placeholder="Ví dụ: Màu trắng" name="mau_xe">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label text-fw600">Hình ảnh</label>
                         <div class="col-sm-9">
-                            <input type="file" class="form-control form-control-sm" id="exampleInputConfirmPassword2" placeholder="" name="hinh_anh">
+                            <input type="file" class="form-control form-control-sm" placeholder="" name="hinh_anh">
                         </div>
                     </div>
-
-                    <button type="submit" class="btn btn-gradient-primary me-2">Gửi xe</button>
-                    <button class="btn btn-light">Huỷ</button>
+                    <input type="text" value="@ViewBag.bai_xe" name="bai_xe" hidden />
+                    <button type="submit" class="btn btn-inverse-success btn-fw me-2">Gửi xe</button>
+                    <a class="btn btn-light" href="/Home/Index">Quay lại</a>
                 </form>
             </div>
         </div>

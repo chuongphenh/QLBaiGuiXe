@@ -22,4 +22,8 @@ public partial class Order
     public string? MauSac { get; set; }
 
     public string? LoaiVe { get; set; }
+
+    public int? IdUser { get; set; }
+
+    public int? IdVeXe { get; set; }
 }

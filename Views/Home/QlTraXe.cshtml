@@ -1,0 +1,201 @@
+﻿<style>
+    body {
+        font-family: Arial;
+    }
+
+    .auth form .form-group {
+        margin-bottom: 10px !important;
+    }
+
+    .text-fw600 {
+        /*font-weight:600;*/
+        font-size: 16px !important;
+    }
+
+    .error {
+        color: red;
+    }
+</style>
+@{
+    var ma_ve = ViewBag.ma_ve ?? "";
+    //var bai_xe = ViewBag.bai_xe ?? "";
+    var thanh_toan = ViewBag.thanh_toan ?? "";
+    var NotiSuccess = ViewBag.NotiSuccess ?? "";
+    //var btn_gui_xeTC = ViewBag.btnGuiXeTC ?? "Quay lại";
+    var kt = "";
+    if (ViewBag.LoaiVe != 0)
+    {
+        if (ViewBag.LoaiVe == 4 || ViewBag.LoaiVe == 5 || ViewBag.LoaiVe == 6)
+        {
+            kt = "Vé tháng";
+        }
+    }
+   
+}
+<div class="row flex-grow" style="margin:10px">
+
+    <div class="col-lg-12 mx-auto">
+        <div class="card">
+
+            <div class="card-body" style="padding-top:10px">
+                <h1 class="card-title" style="text-align:center; font-size:30px"> QUẢN LÝ TRẢ XE</h1>
+                <form class="forms-sample" method="post" enctype="multipart/form-data" action="QlTraXePost">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label text-fw600">Mã vé</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control form-control-sm" placeholder="Ví dụ: MVT1" name="ma_ve" required value="@ma_ve">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-inverse-success btn-fw me-2">Kiểm tra</button>
+                    <p class="error">@ViewBag.noti</p>
+                     <div class="text-center" style="font-size:20px !important; color:#55efc4; padding:10px;"> @NotiSuccess</div>
+                    @if (thanh_toan != "")
+                    {
+                        if (kt == "Vé tháng")
+                        {
+                            <a class="btn btn-inverse-primary btn-fw" href="/home/TraXeVeThang?ma_ve=@ViewBag.Record.VeXe.MaVe">Trả xe</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-inverse-primary btn-fw" id="thanh_toan">@thanh_toan</a>
+                        }
+                    }
+                    @*<a class="btn btn-light" href="/Home/I"></a>*@
+                    @* <input type="text" value="@ViewBag.bai_xe" name="bai_xe" hidden />*@
+                    @*<input type="text" value="@btn_tra_xe" name="btn_tra_xe" hidden />*@
+                </form>
+                
+                @if (ViewBag.noti == "Tìm thấy vé!")
+                {
+                    <table class="table table-striped" style="width:100%; text-align:center">
+                        <colgroup class="table ">
+                            <col style="width: 10%;">
+                            <col style="width: 12%;">
+                            <col style="width: 15%;">
+                            <col style="width: 10%;">
+                            <col style="width: 13%;">
+                            <col style="width: 15%;">
+                            <col style="width: 40%;">
+
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th> Bãi xe </th>
+                                <th> Loại xe </th>
+                                <th> Tên xe </th>
+                                <th> Màu sắc </th>
+                                <th> Biển số </th>
+                                <th> Ngày vào </th>
+                                <th> Hình ảnh </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@ViewBag.Record.BaiXe.TenBaiXe</td>
+                                <td>@ViewBag.Record.LoaiXe.TenLoaiXe</td>
+                                <td>@ViewBag.Record.Xe.DongXe @ViewBag.Record.Xe.TenXe </td>
+                                <td>@ViewBag.Record.Xe.MauSac</td>
+                                <td>@ViewBag.Record.Xe.BienSo</td>
+                                <td>@String.Format("{0:dd/MM/yyyy HH:mm:ss}", ViewBag.Record.VeXe.NgayVao)</td>
+                                @* <td>@String.Format("{0:dd/MM/yyyy HH:mm:ss}", ViewBag.Record.VeXe.NgayHetHan)</td>*@
+                                <td> <img style="width:100%; height:200px" src="~/Upload/Xe/@ViewBag.Record.VeXe.HinhAnh" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                   
+                <div id="overlay"></div>
+                <style>
+                    #popup {
+                        position: fixed;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        background-color: white;
+                        padding: 20px;
+                        border: 1px solid #ccc;
+                        box-shadow: 5px 5px 10px #888;
+                        z-index: 1000;
+                        width:500px;
+                    }
+
+                    #overlay {
+                        display:none;
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: rgba(0, 0, 0, 0.7); /* Điều này sẽ tạo ra lớp mờ với độ trong suốt 70% */
+                        z-index: 999; /* Đảm bảo lớp này hiển thị trên cùng */
+                    }
+                    .header{
+                        @*font-weight:600;*@
+                    }
+                </style>
+                <div id="popup" style="display: none;">
+                        <p class="text-center" style="font-weight:600;">Hoá đơn gửi xe</p>
+
+                        <table class="table table-bordered">
+
+                            <tr>
+                                <td class="header">Mã vé:</td>
+                                <td>@ViewBag.Record.VeXe.MaVe</td>
+                            </tr>
+                            <tr>
+                                <td class="header">Loại xe:</td>
+                                <td>@ViewBag.Record.LoaiXe.TenLoaiXe</td>
+                            </tr>
+                            <tr>
+                                <td class="header">Tên xe:</td>
+                                <td>@ViewBag.Record.Xe.DongXe @ViewBag.Record.Xe.TenXe @ViewBag.Record.Xe.MauSac</td>
+                            </tr>
+                            <tr>
+                                <td class="header">Biển số:</td>
+                                <td>@ViewBag.Record.Xe.BienSo</td>
+                            </tr>
+                            <tr>
+                                <td class="header">Bãi xe:</td>
+                                <td>@ViewBag.Record.BaiXe.TenBaiXe</td>
+                            </tr>
+                            <tr>
+                                <td class="header">Ngày vào:</td>
+                                <td>@String.Format("{0:dd/MM/yyyy HH:mm:ss}", ViewBag.Record.VeXe.NgayVao)</td>
+                            </tr>
+                            <tr>
+                                <td class="header">Ngày ra:</td>
+                                <td> @String.Format("{0:dd/MM/yyyy HH:mm:ss}", ViewBag.ngay_ra)</td>
+                            </tr>
+                            <tr>
+                                <td class="header">Tổng tiền:</td>
+                                <td>@string.Format("{0:#,#.}", ViewBag.tong_tien).Replace(",",".")₫</td>
+                            </tr>
+                        </table>
+
+                        <a style="margin-top:10px;" class="btn btn-inverse-primary btn-fw" href="/home/ThanhToanTraXe?ma_ve=@ViewBag.Record.VeXe.MaVe&&tong_tien=@ViewBag.tong_tien">Thanh Toán</a>
+                </div>
+                }
+
+                <script>
+                    document.getElementById("thanh_toan").addEventListener("click", function (e) {
+                        e.preventDefault(); // Ngăn chặn trình duyệt điều hướng đến href
+                        document.getElementById("popup").style.display = "block";
+                        document.getElementById("overlay").style.display = "block"; 
+                    });
+                    document.getElementById("overlay").addEventListener("click", function () {
+                        document.getElementById("overlay").style.display = "none"; // Ẩn overlay
+                        document.getElementById("popup").style.display = "none"; // Ẩn popup
+                    });
+
+
+                </script>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>

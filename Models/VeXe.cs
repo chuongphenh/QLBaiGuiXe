@@ -25,6 +25,10 @@ public partial class VeXe
 
     public double? TongTien { get; set; }
 
+    public string? MaVe { get; set; }
+
+    public int? IdBaiXe { get; set; }
+
     public virtual LoaiVe? IdLoaiVeNavigation { get; set; }
 
     public virtual Xe IdXeNavigation { get; set; } = null!;
